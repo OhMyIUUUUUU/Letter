@@ -155,21 +155,40 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 1rem;
+        flex-direction: column;
+        /* Stack items vertically */
+        justify-content: flex-start;
+        /* Start from top */
+        min-height: auto;
+        /* Let content dictate height */
+        padding-bottom: 2rem;
     }
 
     .bond-paper {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        min-height: 80vh;
-        /* Adjust height for smaller screens */
+        height: 60vh;
+        /* Reduced height to ensure image fits below without huge scroll */
+        min-height: 400px;
         padding: 1.5rem;
+        margin-bottom: 2rem;
+        /* Space between paper and typewriter */
     }
 
     .typewriter-img {
-        width: 90%;
-        max-width: 400px;
-        /* Limit size on mobile */
+        position: relative;
+        /* Not fixed anymore */
+        bottom: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 300px;
+        /* Limit size */
+        margin: 0 auto;
+        /* Center horizontally */
+        display: block;
+        order: 2;
+        /* Ensure image is below paper */
     }
 
     .content {
@@ -185,6 +204,7 @@ body {
 @media (max-width: 480px) {
     .bond-paper {
         padding: 1rem;
+        min-height: 300px;
     }
 
     .content {
@@ -192,6 +212,6 @@ body {
     }
 
     .typewriter-img {
-        width: 100%;
+        max-width: 250px;
     }
 }
