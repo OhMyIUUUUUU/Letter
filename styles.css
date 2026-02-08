@@ -66,14 +66,20 @@ body {
     z-index: 2;
 }
 
+/* Typewriter Image Styling */
 .typewriter-img {
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    /* Position relative to the bond-paper container */
+    bottom: 100;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
+    width: 700px;
+    max-width: 90%;
+    /* Responsive width */
     height: auto;
     z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to text if needed */
 }
 
 /* Add a subtle texture if desired, or keep it clean like bond paper */
@@ -100,6 +106,8 @@ body {
     /* Preserve formatting */
     overflow-y: auto;
     /* Allow scrolling if text gets too long */
+    /* Huge padding to ensure text clears the typewriter image */
+    padding-bottom: 400px;
 }
 
 
@@ -155,45 +163,36 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 1rem;
-        flex-direction: column;
-        /* Stack items vertically */
-        justify-content: flex-start;
-        /* Start from top */
-        min-height: auto;
-        /* Let content dictate height */
-        padding-bottom: 2rem;
+        min-height: 100vh;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 
     .bond-paper {
         width: 100%;
         max-width: 100%;
-        height: 60vh;
-        /* Reduced height to ensure image fits below without huge scroll */
-        min-height: 400px;
+        height: 80vh;
+        /* Taller on mobile to show content + image */
+        min-height: auto;
         padding: 1.5rem;
-        margin-bottom: 2rem;
-        /* Space between paper and typewriter */
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 
     .typewriter-img {
-        position: relative;
-        /* Not fixed anymore */
-        bottom: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        max-width: 300px;
-        /* Limit size */
-        margin: 0 auto;
-        /* Center horizontally */
-        display: block;
-        order: 2;
-        /* Ensure image is below paper */
+        width: 120%;
+        /* Slightly larger on mobile */
+        max-width: 500px;
+        bottom: -20px;
+        /* Slight offset */
     }
 
     .content {
         font-size: 1rem;
         line-height: 1.6;
+        /* Adjust padding for smaller screens if image size changes */
+        padding-bottom: 300px;
     }
 
     .envelope-message {
@@ -204,14 +203,17 @@ body {
 @media (max-width: 480px) {
     .bond-paper {
         padding: 1rem;
-        min-height: 300px;
+        height: 75vh;
     }
 
     .content {
         font-size: 0.9rem;
+        padding-bottom: 250px;
     }
 
     .typewriter-img {
-        max-width: 250px;
+        max-width: 100%;
+        width: 110%;
+        bottom: -10px;
     }
 }
