@@ -10,7 +10,7 @@ Sa pamamagitan nito malalahathala ko na ang mga salitang gustong lumabas sa'kin.
 Ang iyong pasensiya at pag-unawa sa sitwasyon na meron tayo ay sapat na para masabi kong ikaw ang gusto ko makasama sa lahat ng mga plano na ginawa ko.
 Sa mundong tinatarantado ako andito ka para intindihin ako na kahit minsan kahit ako'y hirap intindihin ang sarili ko. 
 
-Lagi mong tatandaan na hindi ka kulang, hindi ka sapat lang, sobra ka.Salamat sa pagmamahal na binibigay mo sa akin. Mahal na mahal kita.
+Lagi mong tatandaan na hindi ka kulang, hindi ka sapat lang, sobra ka. Salamat sa pagmamahal na binibigay mo sa akin. Mahal na mahal kita.
 
 Nagmamahal,
 Rodel Pogi.`;
@@ -40,6 +40,8 @@ Rodel Pogi.`;
     // Usually requires a click, but we'll try auto-playing.
 
     // Updated: Require click to start to ensure audio plays
+    // Updated: Require click to start to ensure audio plays
+    // Updated: Require click to start to ensure audio plays
     const overlay = document.getElementById('start-overlay');
     const envelope = document.querySelector('.envelope');
 
@@ -59,14 +61,6 @@ Rodel Pogi.`;
             }, 1500); // Wait for envelope open animation
         });
     } else if (overlay) {
-        overlay.addEventListener('click', () => {
-            overlay.classList.add('hidden');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                typeWriter();
-            }, 500); // Wait for fade out
-        });
-    } else {
         // Fallback if overlay is removed
         setTimeout(typeWriter, 1000);
     }

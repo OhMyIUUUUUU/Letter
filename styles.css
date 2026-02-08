@@ -2,9 +2,7 @@
     --paper-width: 8.5in;
     --paper-height: 11in;
     --paper-color: #f7e6c5;
-    /* Aged parchment color */
     --ink-color: #3d2f23;
-    /* Dark brown ink */
     --shadow-color: rgba(60, 40, 20, 0.2);
 }
 
@@ -16,7 +14,6 @@
 
 body {
     background-color: #3b3b3b;
-    /* Dark wood-like background for contrast */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +24,10 @@ body {
 
 .bond-paper {
     width: var(--paper-width);
-    height: var(--paper-height);
+    /* Change height to min-height to allow growth */
+    min-height: var(--paper-height);
+    max-width: 100%;
+    /* Ensure responsiveness */
     background-color: var(--paper-color);
     background-image:
         linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.1)),
@@ -36,22 +36,16 @@ body {
         1px 1px 2px rgba(0, 0, 0, 0.1),
         0 10px 20px -5px rgba(0, 0, 0, 0.4),
         0 0 40px rgba(0, 0, 0, 0.1) inset;
-    /* Inner shadow for depth */
-    /* Deep shadow for lift */
     padding: 1in;
     position: relative;
     overflow: hidden;
-    /* Ensure content doesn't spill out */
     display: flex;
     flex-direction: column;
     border-radius: 2px;
-    /* Slightly softened corners */
-
-    /* Vintage Border via CSS */
     border: 1px solid rgba(61, 47, 35, 0.3);
 }
 
-/* Inner decorative border for vintage feel */
+/* Decorative inner border */
 .bond-paper::after {
     content: "";
     position: absolute;
@@ -66,154 +60,221 @@ body {
     z-index: 2;
 }
 
-/* Typewriter Image Styling */
-.typewriter-img {
-    position: absolute;
-    /* Position relative to the bond-paper container */
-    bottom: 100;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 700px;
-    max-width: 90%;
-    /* Responsive width */
-    height: auto;
-    z-index: 10;
-    pointer-events: none;
-    /* Let clicks pass through to text if needed */
-}
-
-/* Add a subtle texture if desired, or keep it clean like bond paper */
-.bond-paper::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Subtle stained/aged texture overlay */
-    background-image: radial-gradient(circle at 50% 50%, transparent 80%, rgba(160, 120, 60, 0.1) 100%);
-    pointer-events: none;
-}
-
 .content {
-    height: 100%;
+    /* Remove fixed height and overflow to prevent inner scroll */
+    height: auto;
     color: var(--ink-color);
     line-height: 1.8;
     font-family: 'Special Elite', 'Courier New', monospace;
-    /* Typewriter font */
     font-size: 1.1rem;
     white-space: pre-wrap;
-    /* Preserve formatting */
-    overflow-y: auto;
-    /* Allow scrolling if text gets too long */
-    /* Huge padding to ensure text clears the typewriter image */
-    padding-bottom: 400px;
+    position: relative;
+    z-index: 5;
 }
 
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .bond-paper {
+        width: 100%;
+        min-height: 90vh;
+        height: auto;
+        padding: 1.5rem;
+    }
+}
 
-/* Optional: Add lines if it's lined paper, 
-   currently keeping it blank like bond paper usually implies unless specified */
-
+/* --- Envelope Styling (Fixed) --- */
 #start-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    /* Allow text below */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease;
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background-color: #beae95;
+    /* Base color behind flaps */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 4px;
+}
+
+.envelope:hover {
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* FLAPS using borders */
+.envelope-flap {
+    /* TOP FLAP */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 130px solid #b0a088;
+    /* Slightly darker */
+    z-index: 5;
+    /* Topmost */
+    transform-origin: top;
+    transition: transform 0.6s 0.2s ease-in-out;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+.envelope-pocket {
+    /* BOTTOM FLAP */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 140px solid #c0b098;
+    /* Main body color */
+    z-index: 3;
+    /* Above letter, below top flap */
+    filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* SIDE FLAPS */
+.envelope::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    /* Triangle pointing Right */
+    border-left: 160px solid #baaa90;
+    /* Darker than pocket */
+    border-top: 110px solid transparent;
+    border-bottom: 110px solid transparent;
+    z-index: 2;
+}
+
+.envelope::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    /* Triangle pointing Left */
+    border-right: 160px solid #baaa90;
+    border-top: 110px solid transparent;
+    border-bottom: 110px solid transparent;
+    z-index: 2;
+}
+
+/* LETTER inside */
+.envelope-letter {
+    position: absolute;
+    bottom: 0;
+    /* Start at bottom */
+    left: 10px;
+    width: 300px;
+    height: 180px;
+    background-color: #f7e6c5;
+    padding: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    /* Lowest */
+    transition: transform 0.6s 0.8s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
-    cursor: pointer;
-    transition: opacity 0.5s ease;
+    text-align: center;
 }
 
-.envelope-message {
-    color: #f7e6c5;
+.envelope-letter p {
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    animation: pulse 2s infinite;
+    font-size: 1.5rem;
+    color: #3d2f23;
+    margin: 0;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
+/* WAX SEAL */
+.wax-seal {
+    position: absolute;
+    top: 55%;
+    /* Vertically centered on overlap */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, #d12d2d, #8a0000);
+    border-radius: 50%;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+    z-index: 6;
+    /* On top of flap */
+    border: 2px solid rgba(139, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+.wax-seal::after {
+    content: "♥";
+    color: rgba(60, 0, 0, 0.4);
+    font-size: 24px;
+}
+
+/* Instruction Text */
+.instruction-text {
+    margin-top: 2rem;
+    color: #d4c5a9;
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0.6;
     }
 
     50% {
-        transform: scale(1.05);
         opacity: 1;
     }
+}
 
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
+/* ANIMATION OPEN STATE */
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .envelope-letter {
+    transform: translateY(-120px);
+    z-index: 4;
+    /* Popping out above pocket */
+}
+
+.envelope.open .wax-seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
 }
 
 .hidden {
     opacity: 0;
     pointer-events: none;
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-    body {
-        padding: 1rem;
-        min-height: 100vh;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .bond-paper {
-        width: 100%;
-        max-width: 100%;
-        height: 80vh;
-        /* Taller on mobile to show content + image */
-        min-height: auto;
-        padding: 1.5rem;
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
-
-    .typewriter-img {
-        width: 120%;
-        /* Slightly larger on mobile */
-        max-width: 500px;
-        bottom: -20px;
-        /* Slight offset */
-    }
-
-    .content {
-        font-size: 1rem;
-        line-height: 1.6;
-        /* Adjust padding for smaller screens if image size changes */
-        padding-bottom: 300px;
-    }
-
-    .envelope-message {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .bond-paper {
-        padding: 1rem;
-        height: 75vh;
-    }
-
-    .content {
-        font-size: 0.9rem;
-        padding-bottom: 250px;
-    }
-
-    .typewriter-img {
-        max-width: 100%;
-        width: 110%;
-        bottom: -10px;
-    }
 }
