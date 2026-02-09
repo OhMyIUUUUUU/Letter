@@ -44,10 +44,23 @@ Rodel Pogi.`;
     // Updated: Require click to start to ensure audio plays
     const overlay = document.getElementById('start-overlay');
     const envelope = document.querySelector('.envelope');
+    const bgMusic = document.getElementById('bg-music');
+    const muteBtn = document.getElementById('mute-btn');
 
     if (overlay && envelope) {
         overlay.addEventListener('click', () => {
             envelope.classList.add('open');
+
+            // Start playing background music
+            if (bgMusic) {
+                bgMusic.volume = 0.5; // Set initial volume
+                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+
+                // Show mute button
+                if (muteBtn) {
+                    muteBtn.classList.remove('hidden');
+                }
+            }
 
             // Wait for envelope animation to finish before fading out
             setTimeout(() => {
@@ -63,5 +76,20 @@ Rodel Pogi.`;
     } else if (overlay) {
         // Fallback if overlay is removed
         setTimeout(typeWriter, 1000);
+    }
+
+    if (muteBtn && bgMusic) {
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent bubbling if overlay is still there (though it shouldn't be reachable)
+            if (bgMusic.muted) {
+                bgMusic.muted = false;
+                muteBtn.textContent = 'ON';
+                muteBtn.style.opacity = '1';
+            } else {
+                bgMusic.muted = true;
+                muteBtn.textContent = 'OFF';
+                muteBtn.style.opacity = '0.7';
+            }
+        });
     }
 });
