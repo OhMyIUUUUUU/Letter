@@ -8,7 +8,7 @@ Matagal ko nang binabalak na lumiham sa iyo subalit hindi ko alam pano sisimulan
 Sa pamamagitan nito malalahathala ko na ang mga salitang gustong lumabas sa'kin.
 
 Ang iyong pasensiya at pag-unawa sa sitwasyon na meron tayo ay sapat na para masabi kong ikaw ang gusto ko makasama sa lahat ng mga plano na ginawa ko.
-Sa mundong tinatarantado ako andito ka para intindihin ako na kahit minsan kahit ako'y hirap intindihin ang sarili ko. 
+Sa mundong tinatarantado ako andito ka para intindihin ako na kahit minsan ako'y hirap intindihin ang sarili ko. 
 
 Lagi mong tatandaan na hindi ka kulang, hindi ka sapat lang, sobra ka. Salamat sa pagmamahal na binibigay mo sa akin. Mahal na mahal kita.
 
